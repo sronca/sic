@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<definitions xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="urn:nusoap_aut" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="urn:nusoap_aut">
+<types>
+<xsd:schema elementFormDefault="qualified" targetNamespace="urn:nusoap_aut"
+>
+ <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+ <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+ <xsd:complexType name="Esito">
+  <xsd:all>
+   <xsd:element name="codice" type="xsd:long"/>
+   <xsd:element name="descrizione" type="xsd:string"/>
+  </xsd:all>
+ </xsd:complexType>
+ <xsd:complexType name="prgpgt">
+  <xsd:all>
+   <xsd:element name="prg_pgt" type="xsd:long"/>
+  </xsd:all>
+ </xsd:complexType>
+ <xsd:complexType name="prgpgtdocs">
+  <xsd:all>
+   <xsd:element name="prg_pgt" type="xsd:long"/>
+   <xsd:element name="esito" type="tns:Esito"/>
+   <xsd:element name="prg_docs" type="tns:prgdocs" minOccurs="0"/>
+  </xsd:all>
+ </xsd:complexType>
+ <xsd:complexType name="prgdocs">
+  <xsd:all>
+   <xsd:element name="tipo_documento" type="xsd:string"/>
+   <xsd:element name="titolo_documento" type="xsd:string"/>
+   <xsd:element name="link" type="xsd:string"/>
+  </xsd:all>
+ </xsd:complexType>
+ <xsd:complexType name="getdocsRequestType">
+  <xsd:all>
+   <xsd:element name="prgpgt" type="tns:prgpgt" form="unqualified"/>
+  </xsd:all>
+ </xsd:complexType>
+ <xsd:complexType name="getdocsResponseType">
+  <xsd:all>
+   <xsd:element name="prgpgtdocs" type="tns:prgpgtdocs" form="unqualified"/>
+  </xsd:all>
+ </xsd:complexType>
+ <xsd:element name="getdocs" type="tns:getdocsRequestType"/>
+ <xsd:element name="getdocsResponse" type="tns:getdocsResponseType"/>
+</xsd:schema>
+</types>
+<message name="getdocsRequest">
+  <part name="parameters" element="tns:getdocs" /></message>
+<message name="getdocsResponse">
+  <part name="parameters" element="tns:getdocsResponse" /></message>
+<portType name="nusoap_autPortType">
+  <operation name="getdocs">
+    <documentation>Restituisce documenti e immagini</documentation>
+    <input message="tns:getdocsRequest"/>
+    <output message="tns:getdocsResponse"/>
+  </operation>
+</portType>
+<binding name="nusoap_autBinding" type="tns:nusoap_autPortType">
+  <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+  <operation name="getdocs">
+    <soap:operation soapAction="http://pon20142020.indire.it/wsdl/inviaponinchiaro.php/getdocs" style="document"/>
+    <input><soap:body namespace="" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+    <output><soap:body namespace="" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+  </operation>
+</binding>
+<service name="nusoap_aut">
+  <port name="nusoap_autPort" binding="tns:nusoap_autBinding">
+    <soap:address location="http://pon20142020.indire.it/wsdl/inviaponinchiaro.php"/>
+  </port>
+</service>
+</definitions>

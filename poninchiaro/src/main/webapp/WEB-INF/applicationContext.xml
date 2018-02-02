@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
+
+    <context:component-scan base-package="it.istruzione.poninchiaro.service"/>
+
+    <context:property-placeholder
+            location="classpath*:*.properties,file:${jboss.server.config.dir}/miur.properties,file:${jboss.server.config.dir}/poninchiaro.properties"
+            ignore-resource-not-found="true" />
+
+    <jee:jndi-lookup jndi-name="java:jboss/datasources/poninchiaroDS"
+                     id="datasource" expected-type="javax.sql.DataSource" />
+
+	<jee:jndi-lookup jndi-name="java:jboss/datasources/poninchiaroSIF2020GestionaleDS"
+                     id="datasourceSIF2020Gestionale" expected-type="javax.sql.DataSource" />
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="datasource"/>
+    </bean>
+
+    <bean id="poninchiaroDAO" class="it.istruzione.poninchiaro.dao.PoninchiaroDAOImpl">
+        <constructor-arg>
+            <ref bean="datasource"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="documentiDAO" class="it.istruzione.poninchiaro.dao.DocumentiDAOImpl">
+        <constructor-arg>
+            <ref bean="datasource"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="gestionaleDAO" class="it.istruzione.poninchiaro.dao.GestionaleDAOImpl">
+        <constructor-arg>
+            <ref bean="datasourceSIF2020Gestionale"/>
+        </constructor-arg>
+    </bean>
+
+</beans>
