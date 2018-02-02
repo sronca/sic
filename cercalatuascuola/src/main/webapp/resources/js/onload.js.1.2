@@ -1,0 +1,403 @@
+$(document).ready(function() {
+
+	/* Favourite star */
+	if ($('.sc-save-fav').length) {
+		$('.sc-save-fav a').on('click', function(e) {
+			e.preventDefault();
+			$(this).toggleClass('sc-saved');
+		});
+	}
+
+	$('.sc-map-modal').magnificPopup({
+		type: 'ajax',
+		removalDelay: 300,
+		alignTop: 'true',
+		fixedContentPos: 'true',
+		mainClass: 'my-mfp-zoom-in',
+		callbacks: {
+			parseAjax: function(mfpResponse) {
+				mfpResponse.data = $(mfpResponse.data).find('.sc-general-info');
+			},
+			ajaxContentAdded: function() {
+				showMap('sc-map-canvas-2');
+			}
+		}
+	});
+
+	$('.sc-modal').magnificPopup({
+		alignTop: 'true',
+		type: 'ajax',
+		fixedContentPos: 'true',
+		removalDelay: 300,
+		mainClass: 'my-mfp-zoom-in',
+		callbacks: {
+			parseAjax: function(mfpResponse) {
+				mfpResponse.data = $(mfpResponse.data).find('.sc-new-search');
+			},
+			ajaxContentAdded: function() {
+				$(".sc-search-def .sc-form").checkForms();
+				$(".sc-search-pos .sc-form").checkForms();
+				$(".sc-search-adv .sc-form").checkForms();
+				$('.sc-search-pos, .sc-search-adv').checkTabs();
+			}
+		}
+	});
+
+	$('.sc-info-modal').magnificPopup({
+		alignTop: 'true',
+		type: 'ajax',
+		fixedContentPos: 'true',
+		removalDelay: 300,
+		mainClass: 'my-mfp-zoom-in',
+		callbacks: {
+			parseAjax: function(mfpResponse) {
+				mfpResponse.data = $(mfpResponse.data).find('.sc-general-info');
+			}
+		}
+	});
+
+	/* Menu */
+
+	$('.sc-menu a').on('click', function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		$(this).toggleClass('active');
+		$('.sc-main-nav').toggleClass('active');
+	});
+
+	$(document).on('click',function(e){
+		if(!$(e.target).is('.sc-nav') && !$(e.target).is('.sc-nav a')){
+			$(".sc-main-nav, .sc-menu a").removeClass("active");
+		}
+	});
+
+	/* Tab */
+
+	if ($('.sc-search-content').length) {
+		$('.sc-search-pos, .sc-search-adv').checkTabs();
+	}
+
+	$(document).on("click", ".sc-search-nav a",function(e){
+		e.preventDefault();
+		$(this).parent('li').addClass('active');
+		$(this).parent('li').siblings().removeClass('active');
+		var tab = $(this).attr('data-tab');
+		$('.'+tab).siblings().addClass('inactive');
+		$('.'+tab).removeClass('inactive');
+		if(tab=="sc-search-pos"){
+			$("a").parents('div.sc-main-content').addClass('active');
+		}
+		else{
+			$("a").parents('div.sc-main-content').removeClass('active');
+		}
+	});
+
+	/* Table */
+	if ($('.sc-table').length) {
+		$(".sc-table tr:odd").addClass("odd");
+		$(".sc-table tr:even").addClass("even");
+	}
+
+
+	if ($('.sc-form').length) {
+		/* Validation form */
+		$(".sc-search-def .sc-form").checkForms();
+		$(".sc-search-pos .sc-form").checkForms();
+		$(".sc-search-adv .sc-form").checkForms();
+	}
+
+	var $header;
+	var $fixedHeader;
+	var $fixedDiv;
+
+	if ($('.sc-compare').length) {
+		$header = $(".sc-table-header").clone();
+		$fixedHeader = $(".sc-table-header-fixed").append($header);
+		$fixedDiv = $(".sc-table-fixed-container");
+		checkTopTable($header, $fixedHeader, $fixedDiv);
+	};
+
+	if ($('.sc-compare-table').length) {
+		checkWidth();
+	}
+
+	$(window).resize(function(){
+		if ($('.sc-compare-table').length) {
+			$('.sc-compare-table tr, .sc-compare-table th, .sc-compare-table td').resetValue();
+			$('.sc-table-header-fixed tr, .sc-table-header-fixed th').resetValue();
+			$('.sc-table-next').off();
+			$('.sc-table-prev').off();
+			checkWidth();
+		}
+		if ($('.sc-compare').length) {
+			checkTopTable($header, $fixedHeader, $fixedDiv);	
+		};
+	});
+
+	if ($('#sc-map-canvas').length) {
+		showMap('sc-map-canvas');
+	}
+
+	if ($('#sc-map-canvas-2').length) {
+		showMap('sc-map-canvas-2');
+	}
+
+	if ($('.sc-section-menu').length) {
+		$('.sc-nav-action').on('click', function(e) {
+			e.preventDefault();
+			$('.sc-icon').toggleClass('sc-active');
+			$('.sc-scroll-cont-nav').slideToggle(400);
+		});
+	};
+
+});
+
+jQuery.fn.extend({
+    resetValue: function () {
+        $(this).removeAttr('style');
+    }
+});
+
+jQuery.fn.extend({
+    checkTabs: function () {
+        $(this).addClass('inactive');
+    }
+});
+
+jQuery.fn.extend({
+	checkForms: function () {
+		$(this).validate({
+			errorPlacement: function (error, element) {
+	        	if ($(element).is('select')) {
+	        		element.parent().addClass('error');
+	            	element.parent().after(error); // special placement for select elements
+	        	} else {
+	            	error.insertAfter(element);  // default placement for everything else
+	        	}
+	    	}
+		});
+	}
+});
+
+function checkTopTable($header, $fixedHeader, $fixedDiv){
+	var $windowOffset = $(window).scrollTop();
+	checkOffset($header, $fixedHeader, $fixedDiv, $windowOffset);
+	$(window).unbind('scroll');
+	$(window).bind("scroll", function() {
+		var $elOffset = $(this).scrollTop();
+		checkOffset($header, $fixedHeader, $fixedDiv, $elOffset);
+	});
+}
+
+function checkOffset($header, $fixedHeader, $fixedDiv, $newOffset){
+	var offset = $newOffset;
+    var tableOffset = ($(".sc-compare-table").offset().top)-80;
+    if (offset >= tableOffset && $fixedHeader.is(":hidden")) {
+        $fixedDiv.show();
+    }
+    else if (offset < tableOffset) {
+        $fixedDiv.hide();
+    }
+}
+
+function checkWidth(){
+    var scrollBarWidth = 0;
+	var FF = !(window.mozInnerScreenX == null);
+	if (FF) scrollBarWidth = window.innerWidth - jQuery("body").width();
+	var mediaValue = 767;
+	if ($('.sc-section-menu').length) { mediaValue = 959; }
+	if( $(window).width() > mediaValue - scrollBarWidth){
+		$('.sc-compare-table tr, .sc-compare-table th, .sc-compare-table td').resetValue();
+		$('.sc-table-header-fixed tr, .sc-table-header-fixed th').resetValue();
+		$('.sc-compare-table th, .sc-table-header-fixed th, .sc-table-content td').css('height', 'auto');
+	}
+	else {
+		moveEl();
+		$('.sc-compare-table th, .sc-table-header-fixed th').equalHeight();
+		$('.sc-table-content td').equalHeight();
+	}
+	if ($('.sc-section-menu').length) {
+		if($(window).width() > 767 - scrollBarWidth){
+			$('.sc-icon').removeClass('sc-active');
+			$('.sc-scroll-cont-nav').hide();
+		}
+	}
+}
+
+$.fn.equalHeight = function() {
+	var maxHeight = 0;
+	return this.each(function(index, box) {
+		var boxHeight = $(box).height();
+		maxHeight = Math.max(maxHeight, boxHeight);
+	}).height(maxHeight);
+};
+
+function moveEl(){
+	var mainValue = ($(window).width() / 2);
+	if( $(".sc-detail").length ){ mainValue = ($(".sc-internal-content").width() / 2) }
+	var tdNum;
+	var tableWidth;
+	var tablePercent;
+	var nextValue;
+
+	$(".sc-compare-table" ).each(function(index){
+  		tdNum = $('th', this).size();
+		tableWidth = (50 * tdNum)+'%';
+		tablePercent = (100 / tdNum);
+		nextValue = (-(mainValue * (tdNum-2)))+'px';
+		$(this).attr({ 'data-next': nextValue });
+		if ($('.sc-table-header-fixed').length) {
+			$('.sc-table-header-fixed').attr({ 'data-next': nextValue });
+		};
+		$('tr', this).css({ width: tableWidth });
+		$('.sc-table-header-fixed tr').css({ width: tableWidth });
+		$('th, td', this).css({ width: tablePercent+'%'});
+		$('.sc-table-header-fixed th').css({ width: tablePercent+'%'});
+		$('.sc-table-next, .sc-table-prev').addClass('sc-active');
+	});
+
+	
+	$('.sc-table-next').on('click', function(e) {
+		e.preventDefault();
+		var $this = $(this);
+		var nextValue = $this.closest('table').attr('data-next');
+		var dir = "-";
+		preAnimateEl($this, nextValue, dir, mainValue);
+	});
+
+	$('.sc-table-prev').on('click', function(e) {
+		e.preventDefault();
+		var $this = $(this);
+		var nextValue = '0px';
+		var dir = "+";
+		preAnimateEl($this, nextValue, dir, mainValue);
+	});
+}
+
+function preAnimateEl($this, nextValue, dir, mainValue){
+	var $thisHeader;
+	var $thisContent;
+	if ($this.closest('table').hasClass('sc-table-header-fixed')) {
+		$thisHeader = $('.sc-compare-table th:not(:first-child)'); 
+		$thisContent = $('.sc-compare-table td:not(:first-child)');
+	} else {
+		$thisHeader = $this.parent().parent().parent().children('th:not(:first-child)'); 
+		$thisContent = $this.parent().parent().parent().parent().siblings().children().children('td:not(:first-child)');
+	};
+	if ($this.parent().parent().parent().children('th:nth-child(2)').css('left') != nextValue) {
+		if ($this.hasClass('sc-active')) {
+			$this.removeClass('sc-active');
+			function animateEl($el){
+				$el.animate({
+				left: dir+'='+mainValue+'px'
+				}, 300, function(){
+					$this.addClass('sc-active');
+				});
+			}
+			animateEl($('.sc-table-header-fixed th:not(:first-child)'));
+			animateEl($thisHeader);
+			animateEl($thisContent);
+		};
+	};
+}
+
+(function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+		define( ["jquery", "../jquery.validate"], factory );
+	} else {
+		factory( jQuery );
+	}
+}(function( $ ) {
+
+/*
+ * Translated default messages for the jQuery validation plugin.
+ * Locale: IT (Italian; Italiano)
+ */
+$.extend($.validator.messages, {
+	required: "Campo obbligatorio.",
+	remote: "Controlla questo campo.",
+	email: "Inserisci un indirizzo email valido.",
+	url: "Inserisci un indirizzo web valido.",
+	date: "Inserisci una data valida.",
+	dateISO: "Inserisci una data valida (ISO).",
+	number: "Inserisci un numero valido.",
+	digits: "Inserisci solo numeri.",
+	creditcard: "Inserisci un numero di carta di credito valido.",
+	equalTo: "Il valore non corrisponde.",
+	extension: "Inserisci un valore con un&apos;estensione valida.",
+	maxlength: $.validator.format("Non inserire pi&ugrave; di {0} caratteri."),
+	minlength: $.validator.format("Inserisci almeno {0} caratteri."),
+	rangelength: $.validator.format("Inserisci un valore compreso tra {0} e {1} caratteri."),
+	range: $.validator.format("Inserisci un valore compreso tra {0} e {1}."),
+	max: $.validator.format("Inserisci un valore minore o uguale a {0}."),
+	min: $.validator.format("Inserisci un valore maggiore o uguale a {0}."),
+	nifES: "Inserisci un NIF valido.",
+	nieES: "Inserisci un NIE valido.",
+	cifES: "Inserisci un CIF valido."
+});
+
+}));
+
+function showMap(mapcanvas){
+		
+	var mapOptions = {
+		zoom: 4,
+		center: new google.maps.LatLng(-25.363882,131.044922),
+		scrollwheel: false
+	};
+
+	var map = new google.maps.Map(document.getElementById(mapcanvas), mapOptions);
+
+	var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+	var myLatlng2 = new google.maps.LatLng(-25.363882,121.044922);
+	var myLatlng3 = new google.maps.LatLng(-25.363882,141.044922);
+	var myLatlng4 = new google.maps.LatLng(-25.363882,151.044922);
+	var myLatlng5 = new google.maps.LatLng(-25.363882,115.044922);
+
+	var image = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=A|8596FF|000000';
+	var image2 = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=B|6BC64E|000000';
+	var image3 = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=C|FF837B|000000';
+	var image4 = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=D|8596FF|000000';
+	var image5 = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=E|6BC64E|000000';
+
+
+	var contentString = '<div id="sc-map-marker"><div class="sc-map-marker-content"><p><strong>Marker</strong></p><p><a href="">Lorem ipsum dolor sit</a></p><br /><p><strong>Test / Test</strong></p><p><a href="">Lorem ipsum dolor sit</a></p><br /><p><strong>Test / Test</strong></p><p><a href="">Lorem ipsum dolor sit</a></p><br /><p><strong>Test / Test</strong></p><p>Lorem ipsum dolor sit</p><br /><p><strong>Test / Test</strong></p><p><a href="">Lorem ipsum dolor sit</a></p></div></div>';
+
+	var locations = [
+		['Marker 1', myLatlng, image, contentString],
+		['Marker 2', myLatlng2, image2, contentString],
+		['Marker 3', myLatlng3, image3, contentString],
+		['Marker 4', myLatlng4, image4, contentString],
+		['Marker 4', myLatlng5, image5, contentString]
+	];
+
+	var marker, i;
+
+	for (i = 0; i < locations.length; i++) {  
+		marker = new google.maps.Marker({
+			position: locations[i][1],
+			map: map,
+			icon: locations[i][2]
+		});
+
+		google.maps.event.addListener(marker, 'click', (function(marker, i) {
+			return function() {
+	 			infowindow.setContent(locations[i][3]);
+	 			infowindow.open(map, marker);
+			}
+		})(marker,i));
+	};
+
+	var infowindow = new google.maps.InfoWindow({
+		content: contentString,
+		maxWidth: 240
+	});
+
+	
+	google.maps.event.addListener(marker, 'click', function() {
+		infowindow.open(map,marker);
+	});
+	
+
+
+}

@@ -1,0 +1,67 @@
+/* css per grafici */
+.chart
+{
+	min-height:450px;
+	border: solid 1px #333;
+	padding: 1px;
+	background: #fff
+}
+
+/* dotdot classes */
+.chart-explain
+{
+	margin-top: 4px;
+}
+.chart-explain p
+{
+	margin: 0;
+	padding: 2px 0;
+	float: left;
+}
+
+.chart-explain .ellips
+{
+	display: none;
+	max-width: 99.9%;
+}
+
+.chart-explain .switch-ellips
+{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	cursor: hand;
+	cursor: pointer;
+}
+
+.chart-explain span.dotdot-more,
+.chart-explain span.dotdot-close
+{
+	margin: 0;
+	float: left;
+}
+
+.chart-explain span.dotdot-close
+{
+	float: left;
+	display: none;
+	margin-top: 1px;
+}
+
+.chart-explain-clear:after
+{
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+/* dotdot classes */
+
+@media all and (max-width: 767px) {
+
+	.chart
+	{
+		min-height: 510px;
+	}
+}

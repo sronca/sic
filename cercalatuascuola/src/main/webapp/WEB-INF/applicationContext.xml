@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
+
+    <context:component-scan base-package="it.istruzione.cercalatuascuola.ricerca.service"/>
+    <context:component-scan base-package="it.istruzione.cercalatuascuola.dettaglio.service"/>
+
+    <context:property-placeholder
+            location="classpath*:*.properties,file:${jboss.server.config.dir}/miur.properties,file:${jboss.server.config.dir}/cercalatuascuola.properties"
+            ignore-resource-not-found="true" />
+
+    <jee:jndi-lookup jndi-name="java:jboss/datasources/cercalatuascuolaDS"
+                     id="datasource" expected-type="javax.sql.DataSource" />
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="datasource"/>
+    </bean>
+
+    <bean id="anagraficaScuolaDAO" class="it.istruzione.cercalatuascuola.dettaglio.dao.AnagraficaScuoleDAOImpl">
+        <constructor-arg>
+            <ref bean="datasource"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="docDao" class="it.istruzione.cercalatuascuola.dettaglio.dao.DocumentiDAOImpl">
+        <constructor-arg>
+            <ref bean="datasource"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="alunniDAO" class="it.istruzione.cercalatuascuola.dettaglio.dao.AlunniDAOImpl">
+        <constructor-arg>
+            <ref bean="datasource"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="serviziDAO" class="it.istruzione.cercalatuascuola.dettaglio.dao.ServiziDAOImpl">
+        <constructor-arg>
+            <ref bean="datasource"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="didatticaDAO" class="it.istruzione.cercalatuascuola.dettaglio.dao.DidatticaDAOImpl">
+        <constructor-arg>
+            <ref bean="datasource"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="personaleDAO" class="it.istruzione.cercalatuascuola.dettaglio.dao.PersonaleDAOImpl">
+        <constructor-arg>
+            <ref bean="datasource"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="ediliziaDAO" class="it.istruzione.cercalatuascuola.dettaglio.dao.EdiliziaDAOImpl">
+        <constructor-arg>
+            <ref bean="datasource"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="finanzaDAO" class="it.istruzione.cercalatuascuola.dettaglio.dao.FinanzaDAOImpl">
+        <constructor-arg>
+            <ref bean="datasource"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="avcpFinanzaDAO" class="it.istruzione.cercalatuascuola.dettaglio.dao.AVCPFinanzaDAOImpl">
+        <constructor-arg>
+            <ref bean="datasource"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="pagamentiAmmDAO" class="it.istruzione.cercalatuascuola.dettaglio.dao.PagamentiAmmDAOImpl">
+        <constructor-arg>
+            <ref bean="datasource"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="graficiDAO" class="it.istruzione.cercalatuascuola.dettaglio.dao.GraficiDAOImpl">
+        <constructor-arg>
+            <ref bean="datasource"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="graficiInvalsiDAO" class="it.istruzione.cercalatuascuola.dettaglio.dao.GraficiInvalsiDAOImpl">
+        <constructor-arg>
+            <ref bean="datasource"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="tabelleInvalsiDAO" class="it.istruzione.cercalatuascuola.dettaglio.dao.TabelleInvalsiDAOImpl">
+        <constructor-arg>
+            <ref bean="datasource"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="testDAO" class="it.istruzione.cercalatuascuola.ricerca.dao.TestDAOImpl">
+        <constructor-arg>
+            <ref bean="jdbcTemplate"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="cercaLaTuaScuolaDAO" class="it.istruzione.cercalatuascuola.ricerca.dao.CercaLaTuaScuolaDAOImpl">
+        <constructor-arg>
+            <ref bean="datasource"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="caratteristicaDiplomatoDAO" class="it.istruzione.cercalatuascuola.dettaglio.dao.CaratteristicaDiplomatoDAOImpl">
+        <constructor-arg>
+            <ref bean="datasource"/>
+        </constructor-arg>
+    </bean>
+
+</beans>

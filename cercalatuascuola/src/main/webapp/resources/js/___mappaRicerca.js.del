@@ -1,0 +1,549 @@
+var map;
+var mapCenter;
+var mapZoom;
+var mapBounds;
+var bounds;
+
+var marker;
+var geocoderIndirizzo;
+
+var geocoder = null; 
+var raggioCerchio;
+var cerchio;
+var centerMarker;
+
+function showError(error)
+{
+	switch(error.code)
+	{
+		case error.PERMISSION_DENIED:
+			x.innerHTML="User denied the request for Geolocation.";
+			break;
+		case error.POSITION_UNAVAILABLE:
+			x.innerHTML="Location information is unavailable.";
+			break;
+		case error.TIMEOUT:
+			x.innerHTML="The request to get user location timed out.";
+			break;
+		case error.UNKNOWN_ERROR:
+			x.innerHTML="An unknown error occurred.";
+			break;
+	} 	
+}
+
+function showMyPosition(position)
+{
+	lat=position.coords.latitude;
+	lon=position.coords.longitude;
+	latlon=new google.maps.LatLng(lat, lon);
+	
+	var marker = new google.maps.Marker({
+      position: latlon,
+	  icon: "/cercalatuascuola/img/gps.png",
+      map: map,
+      title:"La mia posizione"});
+	  
+	map.setZoom(12);
+	map.setCenter(latlon);
+	
+	google.maps.event.addListener(marker, 'click', function () {showInfo(this)});
+	
+	getAddressIndirizzo(latlon);
+	
+}
+
+function getLocation() 
+{ 
+	if (navigator.geolocation) 
+	{ 
+		navigator.geolocation.getCurrentPosition(showMyPosition,showError);
+	}
+}
+
+function impostaMappaAvanzata(){
+	if ( (document.getElementById("mappa_ava") != null) && ( !map ) ){
+		/*
+		map = new GMap2(document.getElementById("mappa_ava"));
+		bounds = new GLatLngBounds();
+		map.addControl(new GScaleControl());
+		map.addControl(new GMapTypeControl(), new GControlPosition(G_ANCHOR_TOP_RIGHT,new GSize(10,10)));
+		map.addControl(new GLargeMapControl(), new GControlPosition(G_ANCHOR_TOP_RIGHT,new GSize(10,40)));
+		map.addControl(new GOverviewMapControl());
+		map.setCenter(new GLatLng(41.895466, 12.482324), 5);
+		map.clearOverlays();
+		
+		GEvent.addListener(map, "moveend", function() 
+		{
+			mapCenter = map.getCenter();
+			mapZoom = map.getZoom();
+			mapBounds = map.getBounds();
+		});
+		*/
+		var mapOptions = {
+				zoom: 5,
+				center: new google.maps.LatLng(41.895466, 12.482324),
+				panControl: true,
+				zoomControl: true,
+				scaleControl: true,
+				mapTypeControl: true,
+				mapTypeId: google.maps.MapTypeId.ROADMAP,
+				mapTypeControlOptions: {
+					style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+					position: google.maps.ControlPosition.TOP_RIGHT},
+				overviewMapControl: true};
+		map = new google.maps.Map( document.getElementById("mappa_ava"), mapOptions );
+		
+		geocoderIndirizzo = new google.maps.Geocoder();
+		// click
+		google.maps.event.addListener(map, 'rightclick', function(event) {
+            placeMarker(event.latLng);
+        });
+		
+		//google.maps.event.addListener(map, "center_changed", function(){
+		//	mapCenter = map.getCenter();
+		//	mapZoom = map.getZoom();
+		//	mapBounds = map.getBounds();
+		//	});
+		
+		// get posizione corrente
+		getLocation();
+		//caricaProvincia("");
+		//caricaTipologia("","");
+		//caricaTipologia("","Avanzata");		
+		//$("#ui-id-2").css("display","none");
+	}
+	resizeWindow();
+}
+
+function placeMarker(location) {
+    if(marker){ //on vérifie si le marqueur existe
+    	marker.setPosition(location); //on change sa position
+    }else{
+    	marker = new google.maps.Marker({ //on créé le marqueur
+            position: location, 
+            map: map
+        });
+    }
+    map.setCenter(location);
+    map.setZoom(12);
+    //document.getElementById('lat').value=location.lat();
+    //document.getElementById('lng').value=location.lng();
+    getAddressIndirizzo(location);
+}
+
+function getAddressIndirizzo(latLng) {
+	geocoderIndirizzo.geocode( {'latLng': latLng},
+      function(results, status) {
+        if(status == google.maps.GeocoderStatus.OK) {
+          if(results[0]) {
+            document.getElementById("indirizzoRiferimento").value = results[0].formatted_address;
+          }
+          else {
+            document.getElementById("indirizzoRiferimento").value = "No results";
+          }
+        }
+        else {
+          document.getElementById("indirizzoRiferimento").value = status;
+        }
+        $("#accordion").accordion({ active: 0 });
+        
+        if ( $('#raggio').val() != "" ) {
+        	disegnaCerchioProssimita();
+        }
+      });
+    }
+  
+
+function resizeWindow() {
+	// inizializza oggetti
+	
+	var left=$(window).innerWidth() - 486;
+	if ($(window).innerWidth() < 1280) {
+		left= 1280 - 486;
+	}
+	$("#quinta8").css('left', (left) + "px");
+	$("#criteriRicerca").css('left', (left) + "px");
+	// ie 7
+	//$("#criteriRicerca").css({'left':(window.innerWidth - 498)});
+	document.getElementById("criteriRicerca").style.Left=(left) + "px";
+}
+
+$( window ).resize(function() {
+	resizeWindow();
+});
+
+//This example displays an address form, using the autocomplete feature
+//of the Google Places API to help users fill in the information.
+
+var placeSearch, autocomplete;
+var componentForm = {
+street_number: 'short_name',
+route: 'long_name',
+locality: 'long_name',
+administrative_area_level_1: 'short_name',
+country: 'long_name',
+postal_code: 'short_name'
+};
+
+function initialize() {
+	
+	$('#rapida').val($('#rapida').attr('placeholder'));
+	
+	$('#rapida').each(function(){ 
+		 
+        var input = $(this);       
+ 
+        $(input).focus(function(){
+             if (input.val() == input.attr('placeholder')) {
+                 input.val('');
+             }
+             input.css({"background-color": "#ffffff", "font-style": "normal", "color": "#4f4f4f"});
+        });
+ 
+        $(input).blur(function(){
+            if (input.val() == '' || input.val() == input.attr('placeholder')) {
+                input.val(input.attr('placeholder'));
+            }
+            input.css({"background-color": "#f2f2f2", "font-style": "italic", "color": "#b3b3b3"});
+        });
+        
+        $(input).click(function() {
+        	if (input.val() == input.attr('placeholder')) {
+        		input.val('');
+        	}
+        	setTimeout("$('#rapida').focus()", 500);
+        });
+        
+    });
+	
+	
+	$('#rapida').keypress(function (e) {
+		 var key = e.which;
+		 if(key == 13)  // the enter key code
+		  {
+			ricercaScuole('rapida');
+		    return false;  
+		  }
+		}); 
+	
+	caricaTipologia("","");
+	caricaTipologia("","Avanzata");	
+	
+// Create the autocomplete object, restricting the search
+// to geographical location types.
+autocomplete = new google.maps.places.Autocomplete(
+   /** @type {HTMLInputElement} */(document.getElementById('indirizzoRiferimento')),
+   { types: ['geocode'], componentRestrictions: { country: "it"} });
+// When the user selects an address from the dropdown,
+// populate the address fields in the form.
+google.maps.event.addListener(autocomplete, 'place_changed', function() {
+ fillInAddress();
+});
+}
+
+//[START region_fillform]
+function fillInAddress() {
+// Get the place details from the autocomplete object.
+var place = autocomplete.getPlace();
+
+// riempe la form
+//for (var component in componentForm) {
+// document.getElementById(component).value = '';
+// document.getElementById(component).disabled = false;
+//}
+impostaMappaProssimita();
+// Get each component of the address from the place details
+// and fill the corresponding field on the form.
+//for (var i = 0; i < place.address_components.length; i++) {
+// var addressType = place.address_components[i].types[0];
+// if (componentForm[addressType]) {
+//   var val = place.address_components[i][componentForm[addressType]];
+//   document.getElementById(addressType).value = val;
+// }
+//}
+}
+//[END region_fillform]
+
+//[START region_geolocation]
+//Bias the autocomplete object to the user's geographical location,
+//as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+if (navigator.geolocation) {
+ navigator.geolocation.getCurrentPosition(function(position) {
+   var geolocation = new google.maps.LatLng(
+       position.coords.latitude, position.coords.longitude);
+   autocomplete.setBounds(new google.maps.LatLngBounds(geolocation,
+       geolocation));
+ });
+}
+}
+
+//initialize();
+//[END region_geolocation]
+
+
+// Prossimita
+
+
+function impostaMappaProssimita(){
+	if(document.getElementById("mappa_ava") != null){
+		// Inizializzazione oggetti
+		//var mapOptions = {
+		//		zoom: 16,
+		//		center: new google.maps.LatLng(41.895466, 12.482324),
+		//		panControl: true,
+		//		zoomControl: true,
+		//		scaleControl: true,
+		//		mapTypeControl: true,
+		//		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		//		mapTypeControlOptions: {
+		//			style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+		//			position: google.maps.ControlPosition.TOP_RIGHT},
+		//		overviewMapControl: true};
+		//map = new google.maps.Map( document.getElementById("mappa_ava"), mapOptions );
+		google.maps.event.addListener(map, "center_changed", function(){
+			mapCenter = map.getCenter();
+			mapZoom = map.getZoom();
+			mapBounds = map.getBounds();
+			});
+		geocoder = new google.maps.Geocoder();
+		if(document.getElementById("indirizzoRiferimento") != null && document.getElementById("indirizzoRiferimento") != "null"){
+			var indirizzo = popolaIndirizzoGeocode();
+			if(indirizzo != null && indirizzo != "" && indirizzo != "null"){
+				geocode(false);
+			}
+		}
+		//Gestione captcha si/no
+		//if(document.getElementById("captchaAttivo") == null || document.getElementById("captchaAttivo").value == null || document.getElementById("captchaAttivo").value == "N"){
+		//	document.getElementById("captcha").style.height="0px";
+		//	document.getElementById("captcha").style.visibility="hidden";
+		//	document.getElementById("prima_ricerca").style.position="absolute";
+		//	document.getElementById("prima_ricerca").style.top="10px";
+		//	document.getElementById("prima_ricerca").style.height="auto";
+		//	document.getElementById("prima_ricerca").style.visibility="visible";
+		//	document.getElementById("prima_ricerca").style.display="block";
+		//	$("#captchaVerificato").val("S");
+		//}		
+		//caricaProvincia("");	
+		//caricaTipologia("");			
+	}
+}
+
+function popolaIndirizzoGeocode(){
+	//var codReg = document.getElementById("codiceRegione").value;
+	//if(codReg.indexOf("_") != -1){
+	//	codReg = codReg.substring(codReg.indexOf("_")+1);
+	//}
+	//var codPrv = document.getElementById("codiceProvincia").value;
+	//if(codPrv.indexOf("_") != -1){
+	//	codPrv = codPrv.substring(codPrv.indexOf("_")+1);
+	//}
+	//var codCom = document.getElementById("codiceComune").value;
+	//if(codCom.indexOf("_") != -1){
+	//	codCom = codCom.substring(codCom.indexOf("_")+1);
+	//}
+	//var _indirizzo   = 	document.getElementById("indirizzoRiferimento").value + 
+	//					", " + codReg + 
+	//					", " + codPrv + 
+	//					", " + codCom + 
+	//					", " + document.getElementById("cap").value	+ 
+	//					", italia";
+	var _indirizzo   = 	document.getElementById("indirizzoRiferimento").value;
+	return _indirizzo;
+}
+
+function geocode(eseguiRicercaProssimita){
+	if(cerchio != null && cerchio != "" && cerchio != "null" && cerchio != "undefined"){
+		cerchio.setMap(null);
+		//map.removeOverlay(cerchio);
+	}
+	if(centerMarker != null && centerMarker != "" && centerMarker != "null" && centerMarker != "undefined"){
+		bounds = new google.maps.LatLngBounds();
+		//map.removeOverlay(centerMarker);
+		centerMarker.setMap(null);
+	}
+	var indirizzo = popolaIndirizzoGeocode();
+	var raggio = document.getElementById("raggio").value;
+	if(indirizzo != null && indirizzo != "" && indirizzo != "null"){
+	    geocoder.geocode( { 'address': indirizzo, 'region': 'it' }, function(results, status) {
+	        if (status == google.maps.GeocoderStatus.OK) {
+	            var geoCodeResult = results[0].geometry.location;
+	            
+	            var myIcon = {
+					    url: "/cercalatuascuola/images/pin-celeste-piccolo.png",
+					    size: new google.maps.Size(20, 34),
+					    origin: new google.maps.Point(0,0),
+					    anchor: new google.maps.Point(8, 16)
+					  };
+				var myShape = { coord: [1, 1, 1, 20, 18, 20, 18 , 1],
+					      	    type: 'poly'
+					      	  };
+				if (marker) {
+					marker.setMap(null);
+					//marker.setPosition(geoCodeResult);
+				}
+				
+				marker = new google.maps.Marker({
+					position: geoCodeResult,
+		        	map: map
+				});
+			
+				map.setCenter(marker.getPosition());
+				centerMarker = marker;
+				document.getElementById("coordinateRicercaProssimita").value = geoCodeResult.lat() + "," + geoCodeResult.lng();
+				if(raggio != null && raggio != "" && raggio != "null"){
+					disegnaCerchioProssimita();  
+				}
+				if(eseguiRicercaProssimita){
+					ricercaScuole('prossimita');
+				}
+	            /*
+	            var marker = new GMarker(point); 
+				map.addOverlay(marker);
+				bounds.extend(marker.getLatLng());
+				map.setZoom(map.getBoundsZoomLevel(bounds));
+				map.setCenter(bounds.getCenter());
+					        
+				document.getElementById("coordinateRicercaProssimita").value = point.lat() + "," + point.lng();
+				if(raggio != null && raggio != "" && raggio != "null"){
+					disegnaCerchioProssimita();  
+				}
+				if(eseguiRicercaProssimita){
+					ricercaScuole('prossimita');
+				}
+				*/
+	        } 
+	        else {
+	        	alert(indirizzo + " non trovato"); 
+				document.getElementById("coordinateRicercaProssimita").value = "";
+				document.getElementById("raggioRicercaProssimita").value = "";
+				document.getElementById("indirizzoRiferimento").value = "";
+				document.getElementById("raggio").value = "";
+	        }
+	    });
+	}
+	else{
+		alert("Indicare l'indirizzo di riferimento");
+		document.getElementById("coordinateRicercaProssimita").value = "";
+		document.getElementById("raggioRicercaProssimita").value = "";
+		document.getElementById("indirizzoRiferimento").value = "";	
+	}
+}
+
+function disegnaCerchioProssimita(){
+	var indirizzo = popolaIndirizzoGeocode();
+	var raggioCerchio = document.getElementById("raggio").value;
+	if(indirizzo != null && indirizzo != "" && indirizzo != "null" && indirizzo != "undefined"){
+		if(document.getElementById("coordinateRicercaProssimita").value == null || 
+		   document.getElementById("coordinateRicercaProssimita").value == "" || 
+		   document.getElementById("coordinateRicercaProssimita").value == "null" ||
+		   document.getElementById("coordinateRicercaProssimita").value == "undefined"){
+			geocode(false);
+			return;
+		}
+		if(cerchio != null && cerchio != "" && cerchio != "null" && cerchio != "undefined"){
+			cerchio.setMap(null);
+			cerchio = null;
+		}		
+		if(centerMarker){
+			map.setCenter(centerMarker.getPosition());
+		}
+		var center = map.getCenter();
+		//var bounds = new google.maps.LatLngBounds();
+		//alert('raggioCerchio: ' + raggioCerchio);
+		//GPolygon(circlePoints, '#000000', 2, 1, '#000000', 0.25)
+		cerchio = new google.maps.Circle({
+			      strokeColor: '#000000',
+			      strokeOpacity: 0.8,
+			      strokeWeight: 2,
+			      fillColor: '#000000',
+			      fillOpacity: 0.25,
+			      center: center,
+			      radius: Number(raggioCerchio)*1000,
+			      map: map });
+		map.fitBounds(cerchio.getBounds());
+		document.getElementById("raggioRicercaProssimita").value = raggioCerchio;
+	}
+}
+
+function impostaMappaDiretta()
+{
+	if(document.getElementById("mappa_ava") != null){
+		
+		if(map != null && map.getBounds() != null){
+			mapBounds = map.getBounds();
+		}
+		else{
+			mapBounds = new google.maps.LatLngBounds();
+		}
+		
+		if(map != null && map.getCenter() != null){
+	    	mapCenter = map.getCenter();
+		}
+		else{
+			mapCenter = new google.maps.LatLng(41.895466, 12.482324);
+		}
+		
+		if(map != null && map.getZoom() != null){
+    		mapZoom = map.getZoom();
+		}
+		else{
+			mapZoom = 5;
+		}
+		
+		//var mapOptions = {
+		//		zoom: mapZoom,
+		//		center: mapCenter,
+		//		panControl: true,
+		//		zoomControl: true,
+		//		scaleControl: true,
+		//		mapTypeControl: true,
+		//		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		//		mapTypeControlOptions: {
+		//			style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+		//			position: google.maps.ControlPosition.TOP_RIGHT},
+		//		overviewMapControl: true}
+		//map = new google.maps.Map( document.getElementById("mappa_ava"), mapOptions );
+		
+		google.maps.event.addListener(map, "center_changed", function(){
+			mapCenter = map.getCenter();
+			mapZoom = map.getZoom();
+			mapBounds = map.getBounds();
+		});
+		
+		google.maps.event.addListener(map, "zoom_changed", function() {
+			mapZoom = map.getZoom();
+		});
+		
+		//TEST
+		/*
+		map = new GMap2(document.getElementById("mappa_ter"));
+		bounds = new GLatLngBounds();
+		map.addControl(new GScaleControl());
+		map.addControl(new GMapTypeControl(), new GControlPosition(G_ANCHOR_TOP_RIGHT,new GSize(10,10)));
+		map.addControl(new GLargeMapControl(), new GControlPosition(G_ANCHOR_TOP_RIGHT,new GSize(10,40)));
+		map.addControl(new GOverviewMapControl());
+		map.setCenter(new GLatLng(41.895466, 12.482324), 5);
+		map.clearOverlays();
+		
+		GEvent.addListener(map, "moveend", function() 
+		{
+			mapCenter = map.getCenter();
+			mapZoom = map.getZoom();
+			mapBounds = map.getBounds();
+		});
+		*/
+		//TEST
+		
+		document.getElementById("coordinateRicercaDiretta").value = map.getBounds();	
+			
+	}
+}
+
+function impostaCoordinateRicerca() 
+{
+	document.getElementById("coordinateRicercaDiretta").value = map.getBounds();
+	document.getElementById("latitudineAppoggioRicercaDiretta").value = map.getCenter().lat();
+	document.getElementById("longitudineAppoggioRicercaDiretta").value = map.getCenter().lng();
+	document.getElementById("zoomAppoggioRicercaDiretta").value = map.getZoom();		
+}
