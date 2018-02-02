@@ -1,0 +1,161 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>sidi-app-ptof</artifactId>
+
+	<packaging>war</packaging>
+	<parent>
+		<groupId>it.istruzione.sidi</groupId>
+		<artifactId>sidi-commons</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+
+	<dependencies>
+
+		<dependency>
+			<groupId>it.istruzione.sidi</groupId>
+			<artifactId>sidi-commons-base</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+		  <groupId>com.oracle</groupId>
+		  <artifactId>ojdbc6</artifactId>
+		  <version>11.2.0.3</version>
+		</dependency>
+ 
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>1.10.19</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.github.benas</groupId>
+			<artifactId>jpopulator</artifactId>
+			<version>1.2.0</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>itext</groupId>
+			<artifactId>com.itextpdf</artifactId>
+			<version>4.2.0</version>
+		</dependency>
+		
+		<dependency>
+		   <groupId>org.apache.commons</groupId>
+		   <artifactId>commons-csv</artifactId>
+		   <version>1.1</version>
+		</dependency>
+		
+		
+	</dependencies>
+
+	<build>
+		<testResources>
+			<testResource>
+				<directory>${basedir}/src/test/resources</directory>
+			</testResource>
+			<testResource>
+				<directory>${basedir}/src/main/resources</directory>
+			</testResource>
+		</testResources>
+
+
+	</build>
+
+	<profiles>
+		<profile>
+			<id>mockDev1</id>
+ 			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<id>add-source</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>add-source</goal>
+								</goals>
+								<configuration>
+									<sources>
+										<source>${basedir}/src/mockDev1</source>
+
+									</sources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					 
+				</plugins>
+			</build>
+
+			<dependencies>
+				<dependency>
+					<groupId>org.mockito</groupId>
+					<artifactId>mockito-core</artifactId>
+					<version>1.10.19</version>
+					<scope>compile</scope>
+				</dependency>
+
+				<dependency>
+					<groupId>io.github.benas</groupId>
+					<artifactId>jpopulator</artifactId>
+					<version>1.2.0</version>
+					<scope>compile</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		
+		<profile>
+			<id>mock</id>
+ 			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<id>add-source</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>add-source</goal>
+								</goals>
+								<configuration>
+									<sources>
+										<source>${basedir}/src/mock</source>
+
+									</sources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+
+			<dependencies>
+				<dependency>
+					<groupId>org.mockito</groupId>
+					<artifactId>mockito-core</artifactId>
+					<version>1.10.19</version>
+					<scope>compile</scope>
+				</dependency>
+
+				<dependency>
+					<groupId>io.github.benas</groupId>
+					<artifactId>jpopulator</artifactId>
+					<version>1.2.0</version>
+					<scope>compile</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+</project>

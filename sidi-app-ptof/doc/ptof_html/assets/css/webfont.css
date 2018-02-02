@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+/* default OS fonts */
+html, body {
+	font-family: Verdana, arial, sans-serif;
+}
+
+/* fonts now loaded */
+.wf-active body {
+	font-family: "titilliumweb-r";
+}
+
+/* titillium regular */
+@font-face {
+	font-family: "titilliumweb-r";
+	font-weight: normal;
+	font-style: normal;
+	src: url("../fonts/titilliumweb-r.eot");
+	src: url("../fonts/titilliumweb-r.eot?#iefix") format("embedded-opentype"),
+		 url("../fonts/titilliumweb-r.woff") format("woff"),
+		 url("../fonts/titilliumweb-r.ttf") format("truetype"),
+		 url("../fonts/titilliumweb-r.svg#titilliumweb-r") format("svg");
+}
+
+/* titillium semibold */
+@font-face {
+	font-family: "titilliumweb-sb";
+	font-weight: normal;
+	font-style: normal;
+	src: url("../fonts/titilliumweb-sb.eot");
+	src: url("../fonts/titilliumweb-sb.eot?#iefix") format("embedded-opentype"),
+		 url("../fonts/titilliumweb-sb.woff") format("woff"),
+		 url("../fonts/titilliumweb-sb.ttf") format("truetype"),
+		 url("../fonts/titilliumweb-sb.svg#titilliumweb-sb") format("svg");
+}
+
+/* titillium italic */
+@font-face {
+	font-family: "titilliumweb-i";
+	font-weight: normal;
+	font-style: normal;
+	src: url("../fonts/titilliumweb-i.eot");
+	src: url("../fonts/titilliumweb-i.eot?#iefix") format("embedded-opentype"),
+		 url("../fonts/titilliumweb-i.woff") format("woff"),
+		 url("../fonts/titilliumweb-i.ttf") format("truetype"),
+		 url("../fonts/titilliumweb-i.svg#titilliumweb-i") format("svg");
+}
+
+/* miur icons */
+@font-face {
+	font-family: "miur-icons";
+	font-weight: normal;
+	font-style: normal;
+	src: url("../fonts/miur-icons.eot");
+	src: url("../fonts/miur-icons.eot?#iefix") format("embedded-opentype"),
+		 url("../fonts/miur-icons.woff") format("woff"),
+		 url("../fonts/miur-icons.ttf") format("truetype"),
+		 url("../fonts/miur-icons.svg#miur-icons") format("svg");
+}

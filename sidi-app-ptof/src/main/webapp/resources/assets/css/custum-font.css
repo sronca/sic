@@ -1,0 +1,247 @@
+.miur-add-small:before {
+	content: "\76";
+}
+
+.miur-trash-small-1:before {
+	content: "\31";
+}
+
+.miur-eye-small:before {
+	content: "\32";
+}
+
+.miur-pencil-small:before {
+	content: "\e003";
+}
+
+.miur-check-title-small:before {
+	content: "\2b";
+}
+
+.miur-setting-gear-title-small:before {
+	content: "\59";
+}
+
+.miur-setting-gear-title-small {
+	color: #F39E20;
+}
+
+.miur-check-title-small {
+	color: #39B54A;
+}
+
+.miur-trash-small-1, .miur-add-small, .miur-eye-small,
+	.miur-pencil-small {
+	border: 1px solid #C4C4C4;
+	background-color: #FFF;
+	color: #0066CC;
+	display: inline-block;
+	padding: .1em .24em;
+	border-radius: 2px;
+}
+
+.iconcustum {
+	display: inline-block;
+	font-family: 'Glyphicons Halflings';
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal !important;
+	text-transform: none !important;
+	line-height: 1.1;
+	vertical-align: middle;
+	speak: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+[class^="iconcustum-"]:before, [class*=" iconcustum-"]:before {
+	font-family: "Glyphicons Halflings" !important;
+	font-style: normal !important;
+	font-weight: normal !important;
+	font-variant: normal !important;
+	text-transform: none !important;
+	speak: none;
+}
+
+/**
+* richiesta in bozza in carico all'utente compilatore
+* ( rotondo sfondo verde con matita blu )
+*/
+.iconcustum-stato-richiesta-nuova:before {
+	content: "\e168";  
+	border: 1px solid #C4C4C4;
+	background-color: #77fd3e;
+	color: #0066CC;
+	display: inline-block;
+	padding: 10px;
+    border-radius: 20px;
+}
+/**
+* richiesta in carico a sistema ( non assegnata a nessun gruppo )
+* ( quadrato sfondo bianco colore blu con simbolo clessidra  )
+*/
+.iconcustum-stato-richiesta-inviata:before {
+    content: "\e171"; /* areo carta*/
+    border: 1px solid #C4C4C4;
+	background-color: #77fd3e;
+	color: #0066CC;
+	display: inline-block;
+	padding:  10px;
+	border-radius: 20px;
+  
+}
+/**
+* richiesta in carico al tts
+* ( quadrato sfondo giallo con simbolo user blu  )
+*/ 
+.iconcustum-stato-richiesta-gestione-tts:before {
+	content:"\e136"; /* chiave inglese */
+	border: 1px solid #C4C4C4;
+	background-color: #ffeb3b;
+	color: #0066CC;
+	display: inline-block;
+	padding:  10px;
+	border-radius: 20px;
+}
+/**
+* richiesta in carico a un gruppo/ufficio
+* ( quadrato sfondo giallo con simbolo user blu )
+ */
+.iconcustum-stato-richiesta-valutazione:before {
+	content:"\e008"; /* user */
+	border: 1px solid #C4C4C4;
+	background-color: #ffeb3b;
+	color: #0066CC;
+	display: inline-block;
+	padding:  10px;
+	border-radius: 20px;	
+}
+/**
+* richiesta in carico all'utente richiedente che deve esprimere un giudizio
+* ( rotonda sfonfo verde simbolo user  )
+*/
+ 
+.iconcustum-stato-richiesta-chiusa-tecnicamente:before {
+	content:"\e125"; /* dito su */
+	border: 1px solid #C4C4C4;
+	background-color: #77fd3e;
+	color: #0066CC;
+	display: inline-block;
+	padding:  10px;
+	border-radius: 20px;		
+}
+/**
+* richiesta chiusa definitivamente 
+* ( quadrato sfondo bianco simbolo ok )
+*/
+.iconcustum-stato-richiesta-chiusa-amministrativamente:before {
+	content:"\e013"; /* oK */
+	border: 1px solid #C4C4C4;
+	background-color: #77fd3e;
+	color: #0066CC;
+	display: inline-block;
+	padding:  10px;
+	border-radius: 20px;	
+}
+/**
+* richiesta rifiutata del gruppo o ufficio per cui era stata presentata la richiesta
+* in carico all'utente richiedente
+* ( rosso con x )
+*/
+.iconcustum-stato-richiesta-non-accolta:before {
+    content:"\e126"; /* dito verso basso*/
+	border: 1px solid #C4C4C4;
+	background-color: #ff0000;
+	color: #FFF;
+	display: inline-block;
+	padding:  10px;
+	border-radius: 20px;	
+}
+
+/**
+* richiesta annullata dal'utente richiedente
+* ( bianco con ! )
+*/
+.iconcustum-stato-richiesta-annullata:before {
+	content:"\e014"; /* croce */
+	border: 1px solid #C4C4C4;
+	background-color: #ff0000;
+	color: #FFF;
+	display: inline-block;
+	padding:  10px;
+	border-radius: 20px;	
+}
+
+/**
+* richiesta in carico all' utente richiedete 
+* ( verde simbolo + )
+*/
+.iconcustum-stato-richiesta-attesa-informazioni:before {
+	content:"\e086"; /* punto esclamativo */
+	border: 1px solid #C4C4C4;
+	background-color: #ffeb3b;
+	color: #0066CC;
+	display: inline-block;
+	padding: 10px;
+    border-radius: 20px;
+}
+
+/*** GENERICHE ***/
+
+.iconcustum-visualizza:before {
+	content:"\e105"; /* occhio */
+	border: 1px solid #C4C4C4;
+	background-color: #FFF;
+	color: #0066CC;
+	display: inline-block;
+	padding: 10px;
+    border-radius: 20px;
+}
+
+.iconcustum-dettaglio:before {
+	content:"\e092"; /* freccia a sinitra */
+	border: 1px solid #C4C4C4;
+	background-color: #FFF;
+	color: #0066CC;
+	display: inline-block;
+	padding: 10px;
+    border-radius: 2px;
+}
+
+.iconcustum-modifica:before {
+	content: "\270f"; /* matita */
+	border: 1px solid #C4C4C4;
+	background-color: #FFF;
+	color: #0066CC;
+	display: inline-block;
+	padding: 10px;
+    border-radius: 2px;
+}
+
+
+/** SORT **/
+.iconcustum-sort-col:before {
+	content: "\e165";
+	color: #FFF;
+}
+.iconcustum-sort-col-des:before {
+	content: "\e133";
+	color: #FFF;
+}
+.iconcustum-sort-col-asc:before {
+	content: "\e134";
+	color: #FFF;
+}
+
+
+ 
+
+/**BUTTON TESTATA TABELLA***/
+.button-testata-tabella {
+	background-color: #5a6772;
+	border:0px;
+	white-space: nowrap;
+	font-size: 14px;
+}
+
+

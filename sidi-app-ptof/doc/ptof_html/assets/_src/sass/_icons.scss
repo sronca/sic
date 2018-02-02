@@ -1,0 +1,507 @@
+/*
+[data-icon]:before
+{
+  font-family: "miur-icons" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+*/
+
+.miuricon
+{
+/*
+  position: relative;
+  top: 1px;
+*/
+  display: inline-block;
+  font-family: "miur-icons" !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal !important;
+  text-transform: none !important;
+  line-height: 1.1;
+  vertical-align: top;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="miur-"]:before,
+[class*=" miur-"]:before
+{
+  font-family: "miur-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+}
+
+.miur-attenzione:before
+{
+  content: "\61";
+}
+
+.miur-calendario:before
+{
+  content: "\62";
+}
+
+.miur-contesti:before
+{
+  content: "\63";
+}
+
+.miur-dettaglio:before
+{
+  content: "\64";
+}
+
+.miur-freccia-avanti:before
+{
+  content: "\65";
+}
+
+.miur-freccia-giu:before
+{
+  content: "\66";
+}
+
+.miur-freccia-indietro:before
+{
+  content: "\67";
+}
+
+.miur-freccia-su:before
+{
+  content: "\68";
+}
+
+.miur-hamburger:before
+{
+  content: "\69";
+}
+
+.miur-hamburger-chiudi:before
+{
+  content: "\6a";
+}
+
+.miur-logo-repubblica:before
+{
+  content: "\6b";
+}
+
+.miur-logout:before
+{
+  content: "\6c";
+}
+
+.miur-lucchetto-aperto:before
+{
+  content: "\6d";
+}
+
+.miur-utente:before
+{
+  content: "\6e";
+}
+
+.miur-triangolo:before
+{
+  content: "\6f";
+}
+
+.miur-select:before
+{
+  content: "\70";
+}
+
+.miur-profili:before
+{
+  content: "\71";
+}
+
+.miur-menu:before
+{
+  content: "\72";
+}
+
+.miur-manuali:before
+{
+  content: "\73";
+}
+
+.miur-lucchetto-chiuso:before
+{
+  content: "\74";
+}
+
+.miur-ricerca:before
+{
+  content: "\75";
+}
+
+.miur-add:before
+{
+  content: "\76";
+}
+
+.miur-trash:before
+{
+  content: "\77";
+}
+
+.miur-trash-alt:before
+{
+  content: "\78";
+}
+
+.miur-zoom-in:before
+{
+  content: "\79";
+}
+
+.miur-zoom-out:before
+{
+  content: "\7a";
+}
+
+.miur-alert:before
+{
+  content: "\41";
+}
+
+.miur-arrow-left:before
+{
+  content: "\42";
+}
+
+.miur-arrow-right:before
+{
+  content: "\43";
+}
+
+.miur-arrow-up:before
+{
+  content: "\44";
+}
+
+.miur-arrow-doen:before
+{
+  content: "\45";
+}
+
+.miur-caret-down:before
+{
+  content: "\46";
+}
+
+.miur-caret-left:before
+{
+  content: "\47";
+}
+
+.miur-caret-right:before
+{
+  content: "\48";
+}
+
+.miur-caret-up:before
+{
+  content: "\49";
+}
+
+.miur-check:before
+{
+  content: "\4a";
+}
+
+.miur-check-circled:before
+{
+  content: "\4b";
+}
+
+.miur-check-mark-two:before
+{
+  content: "\4c";
+}
+
+.miur-circle-arrow-up:before
+{
+  content: "\4d";
+}
+
+.miur-circle-arrow-left:before
+{
+  content: "\4e";
+}
+
+.miur-circle-arrow-right:before
+{
+  content: "\4f";
+}
+
+.miur-download-two:before
+{
+  content: "\50";
+}
+
+.miur-error:before
+{
+  content: "\51";
+}
+
+.miur-error-two:before
+{
+  content: "\52";
+}
+
+.miur-exclamation-sign:before
+{
+  content: "\53";
+}
+
+.miur-graph:before
+{
+  content: "\54";
+}
+
+.miur-refresh:before
+{
+  content: "\55";
+}
+
+.miur-remove:before
+{
+  content: "\56";
+}
+
+.miur-remove-circled-two:before
+{
+  content: "\57";
+}
+
+.miur-repeat:before
+{
+  content: "\58";
+}
+
+.miur-setting-gear:before
+{
+  content: "\59";
+}
+
+.miur-x:before
+{
+  content: "\5a";
+}
+
+.miur-wrench:before
+{
+  content: "\30";
+}
+
+.miur-trash-1:before
+{
+  content: "\31";
+}
+
+.miur-eye:before
+{
+  content: "\32";
+}
+
+.miur-eye-slash-close:before
+{
+  content: "\33";
+}
+
+.miur-menu-1:before
+{
+  content: "\34";
+}
+
+.miur-minus-circled:before
+{
+  content: "\35";
+}
+
+.miur-right-open-big:before
+{
+  content: "\36";
+}
+
+.miur-left-open-big:before
+{
+  content: "\37";
+}
+
+.miur-up-open-big:before
+{
+  content: "\38";
+}
+
+.miur-down-open-big:before
+{
+  content: "\39";
+}
+
+.miur-mobile:before
+{
+  content: "\21";
+}
+
+.miur-monitor:before
+{
+  content: "\22";
+}
+
+.miur-login:before
+{
+  content: "\23";
+}
+
+.miur-logout-1:before
+{
+  content: "\24";
+}
+
+.miur-lock:before
+{
+  content: "\25";
+}
+
+.miur-lock-open:before
+{
+  content: "\26";
+}
+
+.miur-chevron-down:before
+{
+  content: "\27";
+}
+
+.miur-chevron-left:before
+{
+  content: "\28";
+}
+
+.miur-chevron-right:before
+{
+  content: "\29";
+}
+
+.miur-chevron-up:before
+{
+  content: "\2a";
+}
+
+.miur-check-1:before
+{
+  content: "\2b";
+}
+
+.miur-cancel-circle:before
+{
+  content: "\2c";
+}
+.miur-single-user:before
+{
+  content: "\2d";
+}
+.miur-single-user-1:before
+{
+  content: "\2e";
+}
+.miur-out:before
+{
+  content: "\2f";
+}
+.miur-in:before
+{
+  content: "\3a";
+}
+.miur-home:before
+{
+  content: "\3b";
+}
+.miur-calendar:before
+{
+  content: "\3c";
+}
+.miur-trashcan:before
+{
+  content: "\3d";
+}
+.miur-tools:before
+{
+  content: "\3e";
+}
+.miur-triangle-left:before
+{
+  content: "\3f";
+}
+.miur-triangle-right:before
+{
+  content: "\40";
+}
+.miur-triangle-up:before
+{
+  content: "\5b";
+}
+.miur-triangle-down:before
+{
+  content: "\5d";
+}
+.miur-ban-denied:before
+{
+  content: "\5e";
+}
+.miur-home-1:before
+{
+  content: "\5f";
+}
+.miur-home-circled:before
+{
+  content: "\60";
+}
+.miur-cerchio:before
+{
+  content: "\7b";
+}
+.miur-drag1:before
+{
+  content: "\7c";
+}
+.miur-drag2:before
+{
+  content: "\7d";
+}
+.miur-drag-intero:before
+{
+  content: "\7e";
+}
+.miur-esagono:before
+{
+  content: "\5c";
+}
+.miur-quadrato:before
+{
+  content: "\e000";
+}
+.miur-arrow-move:before
+{
+  content: "\e001";
+}
+.miur-vai:before
+{
+  content: "\e002";
+}

@@ -1,0 +1,17 @@
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.0">
+   <deployment>
+   	   <dependencies>
+             <module name="com.selex-es.miur">
+                <imports>
+                    <include path="META-INF**" />
+                    <include path="org**" />    
+                </imports>
+            </module>  
+             <!--  <module name="com.selex-es.miur.ss.ssfa.fatturaca" >
+                
+            </module>  -->
+            
+           
+   	   </dependencies>
+   </deployment>
+</jboss-deployment-structure>

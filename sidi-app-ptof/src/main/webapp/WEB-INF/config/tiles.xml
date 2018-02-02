@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+
+
+<tiles-definitions>
+
+	<definition name="baseLayoutSmall" template="/WEB-INF/views/layout/baseLayoutSmall.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/layout/header.jsp" />
+		<put-attribute name="message" value="/WEB-INF/views/layout/messaggi.jsp" />
+		<put-attribute name="body" 	value="/WEB-INF/views/layout/body.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/layout/menu.jsp" />
+	</definition>
+
+	<definition name="home" extends="baseLayoutSmall">
+ 	</definition>
+
+	<definition name="login-00-change-profile" extends="baseLayoutSmall">
+	    <put-attribute name="menu" value="/WEB-INF/views/ptof/login/01-menu-chage-profile.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/ptof/login/00-change-profile.jsp" />
+	</definition>
+ 
+
+	<definition name="gestione-00-pubblica-documento" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/pubblica/00-pubblica-documento.jsp" />
+	</definition>
+ 
+ 
+	<definition name="gestione-00-gestione-documenti" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-gestione-documenti.jsp" />
+	</definition>
+	
+    <definition name="gestione-00-gestione-ptof" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-gestione-ptof.jsp" />
+	</definition>
+ 	
+    <definition name="gestione-00-sezione-01-indice" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-01-indice.jsp" />
+	</definition>
+
+    <definition name="gestione-00-sezione-02-finiter" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-02-finiter.jsp" />
+	</definition>
+	
+	<definition name="gestione-00-sezione-03-storia" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-03-storia.jsp" />
+	</definition>
+	
+	<!-- rispetto contine (allegato , test, e combo e mutlibox  -->
+	<definition name="gestione-00-sezione-04-organizzazione" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-04-organizzazione.jsp" />
+	</definition>
+	
+	<definition name="gestione-00-sezione-08-obbiettivi" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-08-obbiettivi.jsp" />
+	</definition>
+
+	<definition name="gestione-00-sezione-09-obbiettivi-miglioramento" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-09-obbiettivi-miglioramento.jsp" />
+	</definition>
+	
+	<definition name="gestione-00-sezione-11-progetticv" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-11-progetticv.jsp" />
+	</definition>
+
+	<definition name="gestione-00-sezione-12-progetti-exstra" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-12-progetti-exstra.jsp" />
+	</definition>
+
+	<definition name="gestione-00-sezione-13-altre-attivita-dida" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-13-altre-attivita-dida.jsp" />
+	</definition>
+
+	<definition name="gestione-00-sezione-14-attivita-sostegno" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-14-attivita-sostegno.jsp" />
+	</definition>
+
+	<definition name="gestione-00-sezione-15-organizzazione-risorse" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-15-organizzazione-risorse.jsp" />
+	</definition>
+
+	<definition name="gestione-00-sezione-16-organizzazione-classi" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-16-organizzazione-classi.jsp" />
+	</definition>
+
+	<definition name="gestione-00-sezione-17-programmazione-formazione" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-17-programmazione-formazione.jsp" />
+	</definition>
+
+	<definition name="gestione-00-sezione-18-strumenti-attrezzature-tecn" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-18-strumenti-attrezzature-tecn.jsp" />
+	</definition>
+
+	<definition name="gestione-00-sezione-19-coll-entilocali-territori" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-19-coll-entilocali-territori.jsp" />
+	</definition>
+
+	<definition name="gestione-00-sezione-20-pianificazione-interventi-monitoraggio" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-20-pianificazione-interventi-monitoraggio.jsp" />
+	</definition>
+
+	<definition name="gestione-00-sezione-21-articolazione-oraria" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-21-articolazione-oraria.jsp" />
+	</definition>
+	
+	<definition name="gestione-00-sezione-22-alternanza-scuola-lavoro" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-22-alternanza-scuola-lavoro.jsp" />
+	</definition>
+	
+	<definition name="gestione-00-sezione-23-dati-finali-scuola" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-23-dati-finali-scuola.jsp" />
+	</definition>
+	
+	<definition name="gestione-00-sezione-24-piano-nazionale-scuola-digitale" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-24-piano-nazionale-scuola-digitale.jsp" />
+	</definition>
+	
+	<definition name="gestione-00-sezione-25-fabbisogno-attrezzature-infrastrutture" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-25-fabbisogno-attrezzature-infrastrutture.jsp" />
+	</definition>
+	
+	<definition name="gestione-00-sezione-26-fabbisogno-posti-cattedre" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-26-fabbisogno-posti-cattedre.jsp" />
+	</definition>
+	
+	<definition name="gestione-00-sezione-27-fabbisogno-posti-sostegno" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-27-fabbisogno-posti-sostegno.jsp" />
+	</definition>
+	
+	<definition name="gestione-00-sezione-28-fabbisogno-posti-potenziamento" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-28-fabbisogno-posti-potenziamento.jsp" />
+	</definition>
+	
+	<definition name="gestione-00-sezione-29-fabbisogno-posti-personale-amm-tec-ausi" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-29-fabbisogno-posti-personale-amm-tec-ausi.jsp" />
+	</definition>
+	
+	<definition name="gestione-00-sezione-30-fabbisogno-connesso-progetto" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-30-fabbisogno-connesso-progetto.jsp" />
+	</definition>
+	
+	<definition name="gestione-00-sezione-31-fabbisogno-connesso-formazione" extends="baseLayoutSmall">
+	   <put-attribute name="body" value="/WEB-INF/views/ptof/gestione/00-sezione-31-fabbisogno-connesso-formazione.jsp" />
+	</definition>
+	
+	<definition name="fn-mon-cruscotto-fabbisogno" extends="baseLayoutSmall">
+ 		<put-attribute name="body" value="/WEB-INF/views/ptof/monitoraggio/fn-mon-cruscotto-fabbisogno.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="fn-mon-report-completo" extends="baseLayoutSmall">
+ 		<put-attribute name="body" value="/WEB-INF/views/ptof/monitoraggio/fn-mon-report-completo.jsp" />
+ 	</definition>
+	
+	<definition name="fn-mon-documenti-attivabili" extends="baseLayoutSmall">
+ 		<put-attribute name="body" value="/WEB-INF/views/ptof/monitoraggio/fn-mon-documenti-attivabili.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="fn-mon-cruscotto-fabbisogno-posti-comuni" extends="baseLayoutSmall">
+ 		<put-attribute name="body" value="/WEB-INF/views/ptof/monitoraggio/fn-mon-cruscotto-fabbisogno-posti-comuni.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="fn-mon-cruscotto-fabbisogno-posti-sostegno" extends="baseLayoutSmall">
+ 		<put-attribute name="body" value="/WEB-INF/views/ptof/monitoraggio/fn-mon-cruscotto-fabbisogno-posti-sostegno.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="fn-mon-cruscotto-fabbisogno-posti-potenziamento" extends="baseLayoutSmall">
+ 		<put-attribute name="body" value="/WEB-INF/views/ptof/monitoraggio/fn-mon-cruscotto-fabbisogno-posti-potenziamento.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="fn-mon-cruscotto-fabbisogno-totale-organica" extends="baseLayoutSmall">
+ 		<put-attribute name="body" value="/WEB-INF/views/ptof/monitoraggio/fn-mon-cruscotto-fabbisogno-totale-organica.jsp" />
+ 	</definition>
+
+	<definition name="fn-mon-dettaglio-fabbisogno" extends="baseLayoutSmall">
+ 		<put-attribute name="body" value="/WEB-INF/views/ptof/monitoraggio/fn-mon-dettaglio-fabbisogno.jsp" />
+ 	</definition>
+ 	 	
+ 	<definition name="fn-mon-statistiche" extends="baseLayoutSmall">
+ 		<put-attribute name="body" value="/WEB-INF/views/ptof/monitoraggio/fn-mon-statistiche.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="fn-convalida-fabbisogno" extends="baseLayoutSmall">
+ 		<put-attribute name="body" value="/WEB-INF/views/ptof/convalida/fn-convalida-fabbisogno.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="fn-cruscotto-convalida-singole-fabbisogno" extends="baseLayoutSmall">
+ 		<put-attribute name="body" value="/WEB-INF/views/ptof/convalida/fn-cruscotto-convalida-singole-fabbisogno.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="fn-mon-consultazione-ptof" extends="baseLayoutSmall">
+ 		<put-attribute name="body" value="/WEB-INF/views/ptof/consultazionePtof/fn-mon-consultazione-ptof.jsp" />
+ 	</definition>
+	
+	<definition name="fn-mon-consultazione-dettaglio-ptof" extends="baseLayoutSmall">
+ 		<put-attribute name="body" value="/WEB-INF/views/ptof/consultazionePtof/fn-mon-consultazione-dettaglio-ptof.jsp" />
+ 	</definition>
+ 
+	<definition name="fn-gestione-catalogo-documenti" extends="baseLayoutSmall">
+ 		<put-attribute name="body" value="/WEB-INF/views/ptof/catalogo/fn-gestione-catalogo-documenti.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="fn-gestione-catalogo-documenti-decreti" extends="baseLayoutSmall">
+ 		<put-attribute name="body" value="/WEB-INF/views/ptof/catalogo/fn-gestione-catalogo-documenti-decreti.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="fn-gestione-catalogo-documenti-decreti-dettaglio" extends="baseLayoutSmall">
+ 		<put-attribute name="body" value="/WEB-INF/views/ptof/catalogo/fn-gestione-catalogo-documenti-decreti-dettaglio.jsp" />
+ 	</definition>
+
+</tiles-definitions>

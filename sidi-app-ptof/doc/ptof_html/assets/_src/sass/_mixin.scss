@@ -1,0 +1,68 @@
+/**
+*  mixin vari
+*/
+
+/* grandezza font */
+@function calculateRem($_size) {
+	$remSize: $_size / 16px;
+	@return $remSize * 1rem;
+}
+
+/* grandezza font */
+@mixin font-size($_size) {
+	font-size: $_size;
+	font-size: calculateRem($_size);
+	line-height: 1.2;
+}
+
+/* transform */
+@mixin this-transform($_deg:"0", $_effect:"rotate") {
+
+	transform: (#{$_effect})+ unquote("(") #{$_deg}deg unquote(")");
+	-webkit-transform: (#{$_effect})+ unquote("(") #{$_deg}deg unquote(")");
+	-moz-transform: (#{$_effect})+ unquote("(") #{$_deg}deg unquote(")");
+	-o-transform: (#{$_effect})+ unquote("(") #{$_deg}deg unquote(")");
+}
+
+/* transform-origin*/
+@mixin this-transform-origin($_pos1:"left", $_pos2:"center") {
+
+	transform-origin: $_pos1 $_pos2;
+	-webkit-transform-origin: $_pos1 $_pos2;
+	-moz-transform-origin: $_pos1 $_pos2;
+	-o-transform-origin: $_pos1 $_pos2;
+}
+
+/* transition */
+@mixin this-transition($_time:".5s", $_effect:"ease-in-out") {
+	transition: unquote($_time+ " " +$_effect);
+	-webkit-transition: unquote($_time+ " " +$_effect);
+	-moz-transition: unquote($_time+ " " +$_effect);
+	-o-transition: unquote($_time+ " " +$_effect);
+}
+
+@mixin borders($_color:"", $_width:"", $_style:"", $_type:"", $_important:"") {
+
+	@if $_color == "" { $_color : #000; }
+	@if $_width == "" { $_width : 1px; }
+	@if $_style == "" { $_style : solid; }
+
+	@if $_type == "" {
+
+		border: $_style $_width $_color #{$_important};
+
+	} @else {
+
+		border-#{$_type}: $_style $_width $_color #{$_important};
+	}
+}
+
+/* bordi arrotondati */
+@mixin border-radius($_val:"default") {
+
+	@if ($_val != "default") {
+		border-radius: $_val;
+	} @else {
+        border-radius: $radius-1;
+    }
+}

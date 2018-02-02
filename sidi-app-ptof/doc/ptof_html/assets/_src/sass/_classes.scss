@@ -1,0 +1,25 @@
+/**
+*  funzioni varie
+*/
+
+/* stampo classi margine */
+$margins: (xs: 0.5em, sm: 1em, md: 1.5em, mdl: 1.8em, lg: 2em, xl: 2.5em);
+
+@each $name, $value in $margins {
+
+	.margin-top-#{$name} {
+		margin-top: $value;
+	}
+
+	.margin-right-#{$name} {
+		margin-right: $value;
+	}
+
+	.margin-bottom-#{$name} {
+		margin-bottom: $value;
+	}
+
+	.margin-left-#{$name} {
+		margin-left: $value;
+	}
+}

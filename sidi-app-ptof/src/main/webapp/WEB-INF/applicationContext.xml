@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+	xmlns:conf-sec="http://cxf.apache.org/configuration/security"
+	xmlns:cxf="http://cxf.apache.org/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+		http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+		http://cxf.apache.org/configuration/security http://cxf.apache.org/schemas/configuration/security.xsd
+		http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
+
+    
+
+	<sec:http pattern="/css/**" security="none" />
+	<sec:http pattern="/img/**" security="none" />
+	<sec:http pattern="/js/**" security="none" />
+	<sec:http pattern="/html/**" security="none" />
+	<sec:http pattern="/404.html" security="none" />
+	<sec:http pattern="/500.html" security="none" />
+
+
+    <context:property-placeholder
+		location="classpath*:*.properties,file:${jboss.server.config.dir}/miur.properties,file:${jboss.server.config.dir}/sidi-app-ptof.properties"
+		ignore-resource-not-found="false" />	
+
+	<jpa:repositories base-package="it.istruzione.ptof.model" />
+
+    <context:component-scan base-package="it.istruzione.commons.service">
+		<context:exclude-filter type="regex"
+			expression="it\.istruzione\.commons\.service\.SchedulerService" />
+	</context:component-scan>	
+	
+	<context:component-scan base-package="it.istruzione.ptof.service" />
+	 
+	<context:component-scan base-package="it.istruzione.ptof.component" /> 	
+	 
+	 
+    <bean class="it.istruzione.ptof.helper.SidiAppCommonsAppProperties" />
+    
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" />
+	
+	<bean class="org.springframework.web.client.RestTemplate" />
+
+
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+
+				<value>/WEB-INF/config/tiles.xml</value>
+			</list>
+		</property>
+		<property name="checkRefresh" value="true" />
+	</bean>
+
+	<tx:annotation-driven />
+	<tx:jta-transaction-manager />
+
+     <jee:jndi-lookup jndi-name="java:jboss/datasources/SidiAppPtofDS" id="datasource" expected-type="javax.sql.DataSource" /> 
+	
+
+     <bean id="entityManagerFactory"
+
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="datasource" />
+		<property name="packagesToScan" value="it.istruzione.ptof.model.entity" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+
+		<property name="jpaProperties">
+
+ 			<props> 
+				
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">none</prop>
+			</props>
+ 
+ 	 
+		</property>
+
+	</bean>
+
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+ 
+
+	<bean id="hibernateListener"
+		class="it.istruzione.commons.config.HibernateListenersConfigurer"
+		init-method="registerListeners">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+		<property name="codiceProgramma" value="${application.id}" />
+	</bean>
+
+   <!-- sicurezza  -->
+   
+    <bean id="dbProfUserDetailService"
+		class="it.istruzione.commons.security.impl.DBProfUserDetailServiceMOC">
+		<property name="profili">
+			  <map>
+				
+				<entry key="PTOF_U_SCU" value="Utente scuola" /> 
+				<entry key="PTOF_U_USR" value="Utente USR" />
+				<entry key="PTOF_U_UFF" value="Utente Ufficio" />
+				<entry key="PTOF_U_AMM" value="Utente Amministratore" />
+			</map>  
+		</property>
+		
+		<property name="contesti">
+		 <map>	 
+	        <entry>
+	            <key>
+	                <value>PTOF_U_SCU</value>
+	            </key>
+	            <map>
+						<entry key="9_RMIC83800A" value="RMIC83800A - I.C. C. COLOMBO" />
+						<entry key="9_APIS01100A" value="APIS01100A - I.I.S. E. FERMI ASCOLI PICENO" />
+			   </map>
+	        </entry>
+	        <entry>
+	            <key>
+	                <value>PTOF_U_USR</value>
+	            </key>
+	            <map>
+						<entry key="YR07" value="REGIONE LAZIO" />
+			   </map>
+	        </entry>
+	        <entry>
+	            <key>
+	                <value>PTOF_U_UFF</value>
+	            </key>
+	            <map>
+						<entry key="17865" value="DG per interventi in matera di edilizia scolastica, gestione dei fondi strutturali per l'istruzione, innovazione digitale" />
+			   </map>
+	        </entry>
+	        <entry>
+	            <key>
+	                <value>PTOF_U_AMM</value>
+	            </key>
+	            <map>
+						<entry key="IT" value="ITALIA" />
+			   </map>
+	        </entry>	                	        
+         </map>
+		</property>
+	</bean>
+    
+   
+   <bean id="preAuthAuthProvider"
+		class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">
+		<property name="preAuthenticatedUserDetailsService">
+			<bean id="userDetailsServiceWrapper"
+				class="org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper">
+				<property name="userDetailsService" ref="dbProfUserDetailService" />
+			</bean>
+		</property>
+	</bean>
+
+    <sec:authentication-manager alias="authenticationManager">
+		<sec:authentication-provider ref="preAuthAuthProvider" />
+	</sec:authentication-manager>
+	
+    <bean id="http403EntryPoint"
+		class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint"></bean>
+
+    <bean id="requestHeaderAuthenticationFilter" class="it.istruzione.commons.security.impl.AuthFilter">
+		<property name="authenticationManager" ref="authenticationManager" />
+	</bean>
+	
+	<sec:http auto-config="false" use-expressions="true"
+		entry-point-ref="http403EntryPoint">
+		
+		<sec:intercept-url pattern="/" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/home.do" access="isAuthenticated()" />
+		
+		<!-- INIT PROFILO SCUOLA -->
+			
+			<!-- funzione da menu GESTIONE PTOF-->
+			<sec:intercept-url pattern="/fn-gestione-ptof.do" access="hasRole('PTOF_U_SCU')" />
+			<!-- servizi relativi-->
+			<sec:intercept-url pattern="/gestitone-documenti/**" access="hasRole('PTOF_U_SCU')" />
+			
+			<!-- funzione inner -->
+			<sec:intercept-url pattern="/fn-gestione-sezione-ptof.do" access="hasRole('PTOF_U_SCU')" />
+			<!-- servizi relativi-->
+			<sec:intercept-url pattern="/gestitone-ptof/**" access="hasRole('PTOF_U_SCU')" />
+			
+		<!--  END PROFILO SCUOLA -->
+		
+		<!-- default-->
+		<sec:intercept-url pattern="/**" access="!hasRole('ROLE_ANONYMOUS')" />
+		
+		<sec:logout logout-success-url="${link.esci}" />
+		<sec:custom-filter position="PRE_AUTH_FILTER" ref="requestHeaderAuthenticationFilter" />
+	</sec:http>
+
+
+	<sec:global-method-security	pre-post-annotations="enabled">
+		<sec:expression-handler ref="expressionHandler" />
+	</sec:global-method-security>
+ 
+	<bean id="expressionHandler" class="it.istruzione.commons.handler.ExpressionHandler" />
+	
+	<bean name="chiaveDocumentoValidator" class="it.istruzione.ptof.validator.ChiaveDocumentoValidator"/>
+	<bean name="sezioniObbligatorieValidator" class="it.istruzione.ptof.validator.SezioniObbligatorieValidator"/>
+	<bean name="dateObbligatorieSezioneDatiFinaliScuolaValidator" class="it.istruzione.ptof.validator.DateObbligatorieSezioneDatiFinaliScuolaValidator"/>
+
+	<bean name="convalidaValidatorChain" class="it.istruzione.ptof.validator.ConvalidaValidatorChain">
+		<property name="validators">
+			<list>
+				<ref bean="chiaveDocumentoValidator" />
+				<ref bean="sezioniObbligatorieValidator" />
+				<ref bean="dateObbligatorieSezioneDatiFinaliScuolaValidator" />
+			</list>
+		</property>
+	</bean>
+
+ 
+
+</beans>

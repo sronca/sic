@@ -1,0 +1,3 @@
+scompattare nella proprio repository maven
+
+.m2\repository\iText\com.itextpdf\....

@@ -1,0 +1,91 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+  
+ 	<context:component-scan base-package="it.istruzione.commons.menu" />
+ 
+	<context:component-scan base-package="it.istruzione.ptof.controller" />
+	 
+	<context:component-scan base-package="it.istruzione.ptof.component" />
+	
+
+
+
+	<mvc:annotation-driven />
+	<mvc:resources mapping="/**" location="/resources/" />
+
+	<!-- Excel Resolver -->
+    <bean class="org.springframework.web.servlet.view.XmlViewResolver">
+		<property name="location">
+			<value>/WEB-INF/excel-views.xml</value>
+		</property>
+		<property name="order" value="0" />
+	</bean>
+
+	<bean id="http403EntryPoint"
+		class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint"></bean>
+
+
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" />
+
+
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+
+				<value>/WEB-INF/config/tiles.xml</value>
+			</list>
+		</property>
+		<property name="checkRefresh" value="true" />
+	</bean>
+ 
+	<bean id="fixedLocaleResolver"
+		class="org.springframework.web.servlet.i18n.FixedLocaleResolver">
+		<property name="defaultLocale" value="it" />
+	</bean>
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="basenames">
+			<list>
+				<value>/WEB-INF/i18n/messages</value>
+				<value>/WEB-INF/i18n/labels</value>
+				<value>/WEB-INF/i18n/validation</value>
+				<value>/WEB-INF/i18n/popupmessages</value> 
+			</list>
+		</property>
+	</bean>
+ 
+	
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		p:maxUploadSize="50000000000" 
+		/>
+
+	<bean id="mappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+</beans>

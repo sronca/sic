@@ -1,0 +1,496 @@
+/* breakpoint per smartphone */
+@media all and (min-width: 360px)
+{
+	.container-fluid
+	{
+		#top-nav
+		{
+			#top-nav-wrapper
+			{
+				padding-left: 1.1em;
+			}
+		}
+
+		#head-lead
+		{
+			.main-title-wrapper
+			{
+				padding-left: 4em;
+			}
+
+			h1 span
+			{
+				font-size: .38em;
+			}
+		}
+	}
+
+	#nav-mobile
+	{
+		top: .3em;
+		left: 1em;
+	}
+
+	#sidebar-container
+	{
+		max-width: 300px;
+	}
+}
+
+@media all and (min-width: 480px)
+{
+	#nav-mobile
+	{
+		top: .4em;
+		left: 1.4em;
+	}
+
+	.container-fluid
+	{
+		#top-nav
+		{
+			#top-nav-wrapper
+			{
+				padding-left: 8em;
+			}
+		}
+
+		#head-lead
+		{
+			padding: .65em 0;
+
+			.main-title-wrapper
+			{
+				padding-left: 4.6em;
+			}
+
+			.logo img
+			{
+				width: 42px;
+				height: 47px;
+				margin-right: .4em;
+			}
+
+			h1
+			{
+				font-size: 2em;
+			}
+
+			h1 span
+			{
+				font-size: .42em;
+			}
+		}
+	}
+
+	#footer
+	{
+		font-size: 1em;
+	}
+}
+
+@media all and (min-width: 640px)
+{
+	#footer
+	{
+		font-size: .9em;
+
+		span
+		{
+			display: inline;
+
+			&:before
+			{
+				content: "- ";
+				position: relative;
+			}
+		}
+	}
+}
+
+@media all and (min-width: 768px)
+{
+	#nav-mobile
+	{
+		top: .8em;
+	}
+
+	#mobile-usermenu-wrapper-v
+	{
+		display: none;
+	}
+
+	.desktop-usermenu-wrapper
+	{
+		display: block;
+	}
+
+	.container-fluid
+	{
+		&.page-header
+		{
+			.mobile-usermenu
+			{
+				display: none !important;
+			}
+
+			.dropdown-arrow:before
+			{
+				display: block;
+			}
+		}
+
+		#top-nav
+		{
+			#top-nav-wrapper
+			{
+				padding: .18em 0 .18em 8.8em;
+			}
+
+			#top-nav-title
+			{
+				font-size: .8em;
+			}
+		}
+
+		#head-lead
+		{
+			padding: .76em  0;
+
+			.logo img
+			{
+				width: 52px;
+				height: 59px;
+				margin-top: .1em;
+				margin-right: .6em;
+			}
+
+			h1 span
+			{
+				font-size: .7em;
+			}
+		}
+	}
+
+	.page-content
+	{
+		margin-top: 7em;
+
+		&.page-sidebar
+		{
+			margin-left: 1em;
+			margin-right: 1em;
+		}
+
+		.wrapper-content
+		{
+			width: 88%;
+			max-width: $maxwidth-content-wrapper;
+			margin: 0;
+		}
+	}
+
+	#footer
+	{
+		font-size: 1em;
+	}
+}
+
+/*
+* regola per explorer 8... maledetto browser! muori!
+*/
+@media all and (max-width: 1023px)
+{
+	.is-ie8
+	{
+		#nav-mobile
+		{
+			display: block;
+		}
+
+		#fixed-bar
+		{
+			display: none !important;
+		}
+	}
+}
+
+@media all and (min-width: 1024px)
+{
+	#nav-mobile
+	{
+		display: none;
+	}
+
+	#main-menu-container-h
+	{
+		display: block;
+
+		#menu-h
+		{
+			width: 86%;
+			padding: .3em 0;
+			margin: 0 auto;
+			height: auto;
+			overflow-y: visible;
+			/* hack per evitare spazio extra tra i li */
+			letter-spacing: -1em;
+
+			li
+			{
+				display: inline-block;
+				text-align: center;
+				width: auto;
+				border-bottom: none;
+				/* hack per evitare spazio extra tra i li */
+				letter-spacing: normal;
+				@include borders($c_13, 2px, "", left);
+			}
+
+			li span
+			{
+				float: none;
+				top: 3px;
+				left: 3px;
+			}
+
+			a,
+			p
+			{
+				min-width: 12em;
+				font-size: 1.1em;
+				padding: .4em;
+				display: inline-block;
+			}
+
+			.open a:focus
+			{
+				outline: none;
+				outline-offset: auto;
+			}
+
+			.dropdown-menu
+			{
+				width: auto;
+				padding: 0 1em;
+				min-width: 100%;
+				top: 120%;
+				left: 0;
+				position: absolute;
+				z-index: 500;
+				box-shadow: 1px 1px 5px $c_17;
+				@include border-radius(.2em);
+			}
+
+			.dropdown-menu ul
+			{
+				box-shadow: none;
+			}
+
+			.dropdown-menu li
+			{
+				width: 100%;
+				display: inline-block;
+				margin: 0 auto;
+				border-left-width: 0;
+				text-align: left;
+				@include borders($c_13, "", "", bottom);
+			}
+
+			.dropdown-menu li a
+			{
+				width: 100%;
+				min-width: auto;
+				word-wrap: normal;
+				white-space: nowrap;
+			}
+		}
+	}
+
+	.desktop-usermenu-wrapper
+	{
+		right: .8em;
+
+		a
+		{
+			font-size: 1em;
+		}
+	}
+
+	.container-fluid
+	{
+		&.page-header
+		{
+			position: static;
+			height: auto;
+		}
+
+		#top-nav
+		{
+			#top-nav-wrapper
+			{
+				padding: .4em 0 .4em 8.8em;
+			}
+		}
+	}
+
+	#sidebar-container
+	{
+		display: block;
+		position: static;
+		box-shadow: 3px 0 2px 0 #999;
+	}
+
+	.page-content
+	{
+		margin-top: auto;
+
+		@at-root .is-ie8 #{&}
+		{}
+
+		&.page-sidebar
+		{
+			margin-left: 320px;
+			margin-right: 20px;
+			position: relative;
+		}
+
+		&.page-sidebar .wrapper-content
+		{
+			width: 95%;
+			margin: 0;
+		}
+	}
+}
+
+@media all and (min-width: 1280px)
+{
+	.desktop-usermenu-wrapper a
+	{
+		font-size: .9em;
+
+		&.dropdown-toggle span
+		{
+			font-size: 1.4em;
+			top: 4px;
+		}
+	}
+
+	.container-fluid
+	{
+		#top-nav
+		{
+			#top-nav-wrapper
+			{
+				padding: .55em 0 .55em 9.4em;
+			}
+
+			#top-nav-title
+			{
+				font-size: 1.1em;
+			}
+		}
+
+		#head-lead
+		{
+			padding-top: 1em;
+			padding-bottom: 1.4em;
+
+			.logo img
+			{
+				width: 62px;
+				height: 70px;
+			}
+
+			h1
+			{
+				font-size: 2.35em;
+			}
+		}
+	}
+}
+
+@media all and (min-width: 1366px)
+{
+	.desktop-usermenu-wrapper
+	{
+		right: 1.8em;
+	}
+
+	.container-fluid
+	{
+		#top-nav
+		{
+			#top-nav-wrapper
+			{
+				padding: .5em 0 .5em 10em;
+			}
+		}
+
+		#head-lead
+		{
+			.main-title-wrapper
+			{
+				padding-left: 5em;
+			}
+
+			h1
+			{
+				font-size: 2.85em;
+			}
+
+			h1 span
+			{
+				font-size: .45em;
+			}
+		}
+	}
+}
+
+@media all and (min-width: 1600px)
+{
+	.desktop-usermenu-wrapper
+	{
+		right: 14.6em;
+
+		@at-root #fixed-bar &
+		{
+			right: 10.8em;
+		}
+	}
+
+	.container-fluid
+	{
+		#top-nav
+		{
+			#top-nav-wrapper
+			{
+				padding-left: 14.6em;
+			}
+		}
+
+		#head-lead
+		{
+			.main-title-wrapper
+			{
+				padding-left: 9.8em;
+			}
+		}
+
+		#fixed-bar
+		{
+			.logo
+			{
+				margin-left: 11em;
+			}
+		}
+	}
+}
+
+@media all and (min-width: 1920px)
+{
+	#main-container
+	{
+		box-shadow: 1px 2px 10px 5px $c_07 !important;
+	}
+}

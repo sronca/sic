@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js is-ie8 is-ieold"><![endif]-->
+<!--[if IE 9]><html class="no-js is-ie9 is-ieold"><![endif]-->
+<html class="no-js">
+    <head>
+		<title>Template generico - Miur - Ministero della Pubblica Istruzione</title>
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+                <meta name="robots" content="noindex,nofollow">
+		
+		<link rel="stylesheet" href="./assets/css/webfont.css">
+		<link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="./assets/bootstrap/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="./assets/plugins/bs-dialog/bootstrap-dialog.min.css">
+		<link rel="stylesheet" href="./assets/css/style.css" />
+		<link rel="stylesheet" href="./assets/css/custom.css" />
+		
+		<link rel="icon" href="./assets/img/favicon.ico" type="image/x-icon" />
+ 
+ 
+		<!-- webfont loader -->
+		<script>
+			WebFontConfig = {
+				custom: {
+					families: ["titilliumweb-r", "titilliumweb-sb", "titilliumweb-i", "miur-icons"]
+				}
+			};
+ 
+			(function() {
+				var wf 		= document.createElement("script");
+				wf.async 	= "true";
+				wf.src 		= "./assets/js/webfont.min.js";
+				var s 		= document.getElementsByTagName("script")[0];
+				s.parentNode.insertBefore(wf, s);
+			})();
+		</script>
+		<!-- webfont loader -->
+ 
+		<script src="./assets/js/modernizr-custom.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="./assets/js/functions.lib.min.js"></script>
+		<script src="./assets/plugins/tinymce/js/tinymce/tinymce.min.js"></script>
+		<script src="./assets/js/custom.lib.js"></script>
+		<!--[if lt IE 9]>
+		<script src="./assets/js/respond.min.js"></script>
+		<![endif]-->
+ 
+    </head>
+ 
+	    <body>
+ 
+		<div id="main-container">			
+<!-- container fluid -->
+			<div id="header" class="container-fluid page-header">
+ 
+				<!-- wrap per calcolare altezza header -->
+				<div id="header-wrapper">
+ 
+					<!-- prima barra blu scuro -->
+					<div id="top-nav">
+						<div id="top-nav-wrapper">
+ 
+							<p id="top-nav-title">
+								<a href="http://www.governo.it/">Ministero dell'Istruzione dell'Università e della Ricerca</a>
+							</p>
+ 
+							<!-- nome profilo con menu -->
+							<div class="desktop-usermenu-wrapper dropdown" data-clone-source="desktop-usermenu">
+								<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+									Sandrino Giorgini <span class="miuricon miur-utente"></span>
+								</a>
+ 
+								<!-- menu utente -->
+								<div class="dropdown-menu dropdown-menu-right dropdown-arrow" role="menu">
+									<ul>
+										<li>
+											<p class="row-1"><span class="miuricon miur-profili"></span> Profilo:</p>
+											<p class="row-2">Nome profilo</p>
+										</li>
+										<li>
+											<p class="row-1"><span class="miuricon miur-contesti"></span> Contesto:</p>
+											<p class="row-2"> Nome contesto</p>
+										</li>
+										<li>
+												<a href="http://saibal/selex_portale/template-generic/change-profile.php"><span class="miuricon miur-single-user"></span> Cambia Profilo</a>
+										</li>
+										<li class="last">
+ 
+												<a href="index-v.php.html#"><span class="miuricon miur-logout"></span> Torna al SIDI</a>
+ 
+										</li>
+									</ul>
+								</div>
+								<!-- menu utente -->
+ 
+							</div>
+							<!-- nome profilo con menu -->
+ 
+						</div>
+					</div>
+					<!-- prima barra blu scuro -->
+ 
+					<!-- barra blu per titolo -->
+					<div id="head-lead">
+ 
+						<!-- hamburger solo su breakpoint mobile -->
+						<div id="nav-mobile">
+							<a href="javascript:void(0)">
+								<span class="nav-wrapper">
+									<span class="nav-bar"></span>
+									<span class="nav-bar"></span>
+									<span class="nav-bar"></span>
+								</span>
+								<span class="nav-text">Menu</span>
+							</a>
+						</div>
+						<!-- hamburger solo su breakpoint mobile -->
+ 
+						<div class="main-title-wrapper">
+							<div class="logo">
+								<a href="http://www.istruzione.it/"><img src="assets/img/logo_white.png" alt="Homepage del MIUR"></a>
+							</div>
+							<h1>
+								PTOF <span>Piano Triennale Offerta Formativa</span>
+							</h1>
+						</div>
+ 
+					</div>
+					<!-- barra blu per titolo -->
+ 
+				</div>
+ 
+				
+				<!-- fixed bar - offset è il valore in pixel a partire dal quale bloccare la barra -->
+				<div id="fixed-bar" data-offset="170">
+ 
+					<div id="fixed-bar-wrapper" data-clone-target="fixed-bar-wrapper">
+ 
+						<div class="logo">
+							<a href="http://www.istruzione.it/"><img src="assets/img/logo_white.png" alt="Homepage del MIUR"></a>
+						</div>
+						<h1>PTOF</h1>
+ 
+					</div>
+ 
+				</div>
+				<!-- fixed bar - offset è il valore in pixel da cui bloccare la barra -->
+ 
+			</div>
+			<!-- container fluid --><!-- sidebar container -->
+<div id="sidebar-container">
+ 
+	<!-- aggancio menu utente -->
+	<div id="mobile-usermenu-wrapper-v">
+ 
+		<ul id="mobile-usermenu-v">
+			<!-- contenitore menu user clonato verticale -->
+			<li class="mobile-usermenu dropdown" data-clone-target="mobile-usermenu-v"></li>
+			<!-- contenitore menu user clonato verticale -->
+		</ul>
+	</div>
+	<!-- aggancio menu utente -->
+ 
+	<!-- inizio sidebar -->
+	<div id="sidebar">
+ 
+		<div id="sidebar-menu-header">
+			<h4>Navigazione</h4>
+		</div>
+ 
+		<!-- primo livello -->
+		<ul id="sidebar-menu">
+			<li class="active">
+				<span class="vline"></span>
+				<a href="index.html">Home <span class="sidebar-icon miuricon miur-freccia-avanti"></span></a>
+			</li>
+			<li class="">
+				<span class="vline" ></span>
+				<a href="catalogo.html">Catalogo <span class="sidebar-icon miuricon miur-freccia-avanti"></span></a>
+			</li>
+		</ul>
+		<!-- primo livello -->
+ 
+ 
+	</div>
+	<!-- inizio sidebar -->
+ 
+</div>
+<!-- sidebar container -->	<!-- inizio contenuto. aggiungere classe "page-sidebar" per menu laterale -->
+	<div id="main-page-content" class="page-content page-sidebar clearfix">
+		
+		<div class="wrapper-content">
+ 
+			<p class="title">Lorem ipsum dolor sit amet</p>
+ 
+		    <p class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+ 
+			<p class="text">Vivamus molestie eros sed neque cursus egestas. Curabitur elementum nulla vel neque laoreet, sit amet mollis ligula volutpat. <strong>Donec non vulputate metus.</strong> Curabitur sed lorem euismod, ultrices lectus sit amet, mollis leo.</p>
+ 
+			<p class="text"><strong>Vestibulum ante ipsum primis in faucibus</strong> orci luctus et ultrices posuere cubilia Curae; Ut lectus risus, egestas et risus sit amet, dapibus blandit sapien. Nullam at diam ac tellus imperdiet ullamcorper. Donec euismod mauris at sem pharetra volutpat tincidunt at magna. Aliquam nibh ipsum, dictum nec lacus vel, tempor sagittis odio.</p>
+ 
+		</div>
+ 
+	</div>
+ 
+<div id="footer">
+	<p>
+		<a href="http://www.istruzione.it">Ministero dell&#39;Istruzione, dell&#39;Università e della Ricerca</a> <span>Tutti i diritti riservati &copy; 2016</span>
+	</p>
+</div>
+	</div>
+ 
+	<div class="service-message ie8-compat-message">
+		<p>Sembra che il tuo browser sia in modalità "Compatibile".</p>
+		<p>Per una corretta visione del sito utilizza la modalità standard dentro "Strumenti > Strumenti di sviluppo"</p>
+	</div>
+	<div class="service-message no-js-message">
+		<p>Per utilizzare il sito è necessario attivare javascript</p>
+	</div>
+ 
+	<script src="./assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
